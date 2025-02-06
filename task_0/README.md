@@ -65,7 +65,7 @@ GET /
 {
   "email": "mysviurch@gmail.com",
   "current_datetime": "2025-02-06T17:02:10Z",
-  "github_url": "https://github.com/kelviz/hng_12_task_0"
+  "github_url": "https://github.com/Kelviz/hng_12/tree/main/task_0"
 }
 ```
 
@@ -92,7 +92,7 @@ print(response.json())
 The API is deployed and accessible at:
 
 ```http
-<your-public-api-url>
+https://urchdev-task-0.vercel.app/
 ```
 
 ---
