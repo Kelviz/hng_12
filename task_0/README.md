@@ -18,8 +18,8 @@ This is a simple public API developed for **HNG12 Task 0**. It provides basic in
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/kelviz/hng_12_task_0.git
-cd hng_12_task_0
+git clone https://github.com/Kelviz/hng_12.git
+cd task_0
 ```
 
 ### 2. Create a Virtual Environment
