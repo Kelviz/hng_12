@@ -1,17 +1,15 @@
+from django.http import JsonResponse
+from django.views import View
 import math
 import requests
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
-from django.views import View
 
 class NumberClassificationView(View):
     def get(self, request):
         number = request.GET.get("number", None)
 
         # Validate input
-        if not number or not number.isdigit():
-            return JsonResponse({"number": number, "error": True}, status=400)
+        if not number or not number.lstrip("-").isdigit():
+            return JsonResponse({"number": "alphabet", "error": True}, status=400)
 
         number = int(number)
 
@@ -20,7 +18,7 @@ class NumberClassificationView(View):
         is_perfect = self.is_perfect(number)
         is_armstrong = self.is_armstrong(number)
         is_even = self.is_even(number)
-        digit_sum = sum(int(digit) for digit in str(number))
+        digit_sum = sum(int(digit) for digit in str(abs(number)))
         parity = "even" if is_even else "odd"
         
         # Determine properties list
@@ -52,25 +50,19 @@ class NumberClassificationView(View):
         return True
 
     def is_armstrong(self, num):
-                num_str = str(num)
-                n = len(num_str)
-                total = 0
-                for digit in num_str:
-                        total += int(digit) ** n
-                return total == num
-
+        num_str = str(abs(num))
+        n = len(num_str)
+        total = sum(int(digit) ** n for digit in num_str)
+        return total == abs(num)
 
     def is_even(self, num):
         return num % 2 == 0
 
-
     def is_perfect(self, num):
-        num_list = []
-        for i in range(1, num):
-                if num % i == 0:
-                        num_list.append(i)
+        if num < 1:
+            return False
+        num_list = [i for i in range(1, num) if num % i == 0]
         return num == sum(num_list)
-
 
     def get_fun_fact(self, num):
         try:
@@ -80,4 +72,3 @@ class NumberClassificationView(View):
         except requests.exceptions.RequestException:
             pass
         return "No fact available"
-
